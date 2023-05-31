@@ -3,7 +3,7 @@ pipeline {
     stages {  
             stage ('Git-Checkout') {  
                 steps{
-                    git url:'https://github.com/aka034/MavenWebProject.git', branch: 'master'
+                    git url:'https://github.com/aka034/CI-CD-Pipeline.git', branch: 'master'
                     echo "Checkout successful";
                 } 
             }
