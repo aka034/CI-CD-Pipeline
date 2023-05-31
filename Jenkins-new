@@ -1,23 +1,25 @@
-pipeline {  
-    agent any  
-    stages {  
-            stage ('Git-Checkout') {  
-                steps{
-                    git url:'https://github.com/aka034/CI-CD-Pipeline.git', branch: 'master'
-                    echo "Checkout successful";
-                } 
+pipeline{
+    agent any
+    tools{
+        maven 'maven3'
+    }
+    stages{
+        stage('checkout the code'){
+            steps{
+                git url:'https://github.com/aka034/CI-CD-Pipeline.git', branch: 'master'
             }
-	        stage('build the code'){
+        }
+        stage('build the code'){
             steps{
                 sh 'mvn clean package'
             }
- stage('Generate sonarqube-analysis'){
+            }
+            stage('Generate sonarqube-analysis'){
             steps{
-                withSonarQubeEnv(installationName: 'sonarqube-8', credentialsId: 'sonarqube-creds') {
+                withSonarQubeEnv(installationName: 'sonarqube-8', credentialsId: 'sonarqube-cred') {
                  sh 'mvn sonar:sonar'
                 }
             }
-        } 
-        }
+	}
 	}
 	}
